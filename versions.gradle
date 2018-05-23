@@ -1,0 +1,15 @@
+/**
+ * Shared file between modules so that they can all use the dependencies with same version.
+ */
+
+ext.deps = [:]
+
+// Dependency versions
+def versions = [:]
+versions.junit = "4.12"
+
+// Dependencies
+def deps = [:]
+deps.junit = "junit:junit:$versions.junit"
+
+ext.deps = deps

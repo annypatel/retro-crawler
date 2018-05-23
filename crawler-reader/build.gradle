@@ -2,7 +2,7 @@ apply plugin: 'java-library'
 
 dependencies {
     implementation project(":crawler")
-    testImplementation 'junit:junit:4.12'
+    testImplementation deps.junit
 }
 
 sourceCompatibility = "1.8"
