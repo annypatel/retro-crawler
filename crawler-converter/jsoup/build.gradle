@@ -1,0 +1,11 @@
+apply plugin: 'java-library'
+
+dependencies {
+    api deps.jsoup
+    api deps.jspoon
+    testImplementation deps.junit
+    testImplementation deps.mockito
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
