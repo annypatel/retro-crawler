@@ -1,1 +1,1 @@
-include ':crawler'
+include ':crawler', ':crawler-reader'
