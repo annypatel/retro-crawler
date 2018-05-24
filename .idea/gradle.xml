@@ -10,7 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/crawler" />
             <option value="$PROJECT_DIR$/crawler-converter" />
-            <option value="$PROJECT_DIR$/crawler-converter/jsoup" />
+            <option value="$PROJECT_DIR$/crawler-converter/jspoon" />
             <option value="$PROJECT_DIR$/crawler-reader" />
           </set>
         </option>
