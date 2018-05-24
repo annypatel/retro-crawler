@@ -1,8 +1,11 @@
 apply plugin: 'java-library'
 
 dependencies {
+    api project(":crawler")
+    api project(":crawler-reader")
     api deps.jsoup
     api deps.jspoon
+    implementation deps.retrofit
     testImplementation deps.junit
     testImplementation deps.mockito
 }
