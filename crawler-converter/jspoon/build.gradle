@@ -8,6 +8,7 @@ dependencies {
     implementation deps.retrofit
     testImplementation deps.junit
     testImplementation deps.mockito
+    testImplementation deps.mockWebServer
 }
 
 sourceCompatibility = "1.8"
