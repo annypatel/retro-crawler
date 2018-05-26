@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
 public class HtmlReaderResolverTest {
 
     @Test
-    public void read_givenHtmlHeadAnnotation_shouldReturnsHtmlHeadReader() {
+    public void resolve_givenHtmlHeadAnnotation_shouldReturnsHtmlHeadReader() {
         Annotation[] annotations = {new HtmlHead() {
             @Override
             public Class<? extends Annotation> annotationType() {
@@ -29,7 +29,7 @@ public class HtmlReaderResolverTest {
     }
 
     @Test
-    public void read_givenHtmlBodyAnnotation_shouldReturnsHtmlBodyReader() {
+    public void resolve_givenHtmlBodyAnnotation_shouldReturnsHtmlBodyReader() {
         Annotation[] annotations = {new HtmlBody() {
             @Override
             public Class<? extends Annotation> annotationType() {
@@ -43,7 +43,7 @@ public class HtmlReaderResolverTest {
     }
 
     @Test
-    public void read_givenEmptyArray_shouldReturnsHtmlFullReader() {
+    public void resolve_givenEmptyArray_shouldReturnsHtmlFullReader() {
         Annotation[] annotations = {};
 
         HtmlReader htmlReader = new HtmlReaderResolver().resolve(annotations);
