@@ -19,6 +19,7 @@ versions.jsoup = "1.11.2"
 versions.junit = "4.12"
 versions.mockito = "2.18.3"
 versions.mockWebServer = "3.10.0"
+versions.jsoupAnnotations = "1.0.3"
 
 // Dependencies
 def deps = [:]
@@ -28,5 +29,6 @@ deps.jsoup = "org.jsoup:jsoup:$versions.jsoup"
 deps.junit = "junit:junit:$versions.junit"
 deps.mockito = "org.mockito:mockito-core:$versions.mockito"
 deps.mockWebServer = "com.squareup.okhttp3:mockwebserver:$versions.mockWebServer"
+deps.jsoupAnnotations = "com.github.fcannizzaro:jsoup-annotations:$versions.jsoupAnnotations"
 
 ext.deps = deps

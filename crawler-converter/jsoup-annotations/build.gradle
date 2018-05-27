@@ -10,4 +10,14 @@ android {
 }
 
 dependencies {
+    api project(":crawler")
+    api project(":crawler-reader")
+    api deps.jsoup
+    api deps.jsoupAnnotations
+    implementation deps.retrofit
+    testImplementation deps.junit
+}
+
+repositories {
+    maven { url 'https://jitpack.io' }
 }
