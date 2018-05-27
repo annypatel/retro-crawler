@@ -1,4 +1,4 @@
-package com.vertaperic.jsoup.annotations;
+package com.vertaperic.crawler.jsoup.annotations;
 
 import com.fcannizzaro.jsoup.annotations.JsoupProcessor;
 import com.vertaperic.crawler.HtmlReader;

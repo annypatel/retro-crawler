@@ -1,13 +1,10 @@
-package com.vertaperic.jsoup.annotations;
+package com.vertaperic.crawler.jsoup.annotations;
 
 import com.fcannizzaro.jsoup.annotations.interfaces.Attr;
-import com.vertaperic.crawler.HtmlReader;
-import com.vertaperic.crawler.reader.HtmlReaderResolver;
 
 import org.junit.Test;
 
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
@@ -16,7 +13,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class BufferingResponseConverterTest {
+public class StreamingResponseConverterTest {
 
     public static class OpenGraphData {
         @Attr(query = "meta[property^=og:title]", attr = "content")
@@ -28,7 +25,6 @@ public class BufferingResponseConverterTest {
 
     @Test
     public void convert_givenHtmlResponse_returnsParsedData() throws IOException {
-        HtmlReader reader = new HtmlReaderResolver().resolve(new Annotation[]{});
         String baseUrl = "http://www.vertaperic.com";
         String html = "<html>" +
                 "<head>" +
@@ -40,8 +36,8 @@ public class BufferingResponseConverterTest {
         ResponseBody response = ResponseBody.create(
                 MediaType.parse("text/html; charset=utf-8"), html);
 
-        BufferingResponseConverter<OpenGraphData> converter = new BufferingResponseConverter<>(
-                reader, baseUrl, OpenGraphData.class);
+        StreamingResponseConverter<OpenGraphData> converter = new StreamingResponseConverter<>(
+                baseUrl, OpenGraphData.class);
         OpenGraphData data = converter.convert(response);
 
         assertThat(data.title, is(equalTo("The Rock")));
