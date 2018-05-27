@@ -1,1 +1,1 @@
-include ':crawler', ':crawler-reader', 'crawler-converter:jspoon'
+include ':crawler', ':crawler-reader', 'crawler-converter:jsoup-annotations', 'crawler-converter:jspoon'

@@ -2,7 +2,14 @@
  * Shared file between modules so that they can all use the dependencies with same version.
  */
 
+ext.buildVersions = [:]
 ext.deps = [:]
+
+def buildVersions = [:]
+buildVersions.minSdk = 15
+buildVersions.compileSdk = 27
+buildVersions.targetSdk = 27
+ext.buildVersions = buildVersions
 
 // Dependency versions
 def versions = [:]
