@@ -40,7 +40,7 @@ public class BufferingResponseConverterTest {
         OpenGraphData data = converter.convert(response);
 
         assertThat(data.title, is(equalTo("The Rock")));
-        assertThat(data.type, is(equalTo(baseUrl + "/image.jpg")));
+        assertThat(data.url, is(equalTo(baseUrl + "/image.jpg")));
     }
 
     private static class OpenGraphData {
@@ -49,6 +49,6 @@ public class BufferingResponseConverterTest {
         String title;
 
         @Selector(value = "meta[property^=og:url]", attr = "abs:content")
-        String type;
+        String url;
     }
 }

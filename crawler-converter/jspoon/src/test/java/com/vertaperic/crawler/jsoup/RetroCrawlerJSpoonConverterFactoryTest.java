@@ -43,7 +43,7 @@ public class RetroCrawlerJSpoonConverterFactoryTest {
         String title;
 
         @Selector(value = "meta[property^=og:url]", attr = "abs:content")
-        String type;
+        String url;
     }
 
     @Rule
@@ -76,7 +76,7 @@ public class RetroCrawlerJSpoonConverterFactoryTest {
 
         assertNotNull(data);
         assertThat(data.title, is(equalTo("The Rock")));
-        assertThat(data.type, is(equalTo(retrofit.baseUrl() + "image.jpg")));
+        assertThat(data.url, is(equalTo(retrofit.baseUrl() + "image.jpg")));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class RetroCrawlerJSpoonConverterFactoryTest {
 
         assertNotNull(data);
         assertThat(data.title, is(equalTo("The Rock")));
-        assertThat(data.type, is(equalTo(BASE_URL + "image.jpg")));
+        assertThat(data.url, is(equalTo(BASE_URL + "image.jpg")));
     }
 
     @Test
