@@ -16,6 +16,7 @@ dependencies {
     api deps.jsoupAnnotations
     implementation deps.retrofit
     testImplementation deps.junit
+    testImplementation deps.mockWebServer
 }
 
 repositories {
