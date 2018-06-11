@@ -35,7 +35,7 @@ jobs:
           command: |
             ./gradlew test
             mkdir -p ~/test-results/
-            find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/ \;
+            find . -type f -regex ".*/build/test-results/.*xml" -exec cp --parents {} ~/test-results/ \;
           when: always
 
       - store_test_results:
