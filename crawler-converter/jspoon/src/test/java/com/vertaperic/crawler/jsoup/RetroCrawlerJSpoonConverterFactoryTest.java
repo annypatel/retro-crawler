@@ -27,7 +27,7 @@ import static org.junit.Assert.assertThat;
 
 public class RetroCrawlerJSpoonConverterFactoryTest {
 
-    static final String BASE_URL = "http://www.vertaperic.com/";
+    static final String BASE_URL = "http://example.com/";
 
     interface OpenGraphService {
         @GET("/")

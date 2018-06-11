@@ -29,7 +29,7 @@ public class BufferingResponseConverterTest {
     @Test
     public void convert_givenHtmlResponse_returnsParsedData() throws IOException {
         HtmlReader reader = new HtmlReaderResolver().resolve(new Annotation[]{});
-        String baseUrl = "http://www.vertaperic.com";
+        String baseUrl = "http://example.com";
         String html = "<html>" +
                 "<head>" +
                 "<meta property=\"og:title\" content=\"The Rock\" />" +

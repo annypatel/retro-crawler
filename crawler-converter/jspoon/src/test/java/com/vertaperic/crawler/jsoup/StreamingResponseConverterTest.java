@@ -19,7 +19,7 @@ public class StreamingResponseConverterTest {
     @Test
     public void convert_givenHtmlResponse_returnsParsedData() throws IOException {
         HtmlAdapter<OpenGraphData> adapter = Jspoon.create().adapter(OpenGraphData.class);
-        String baseUrl = "http://www.vertaperic.com";
+        String baseUrl = "http://example.com";
         String html = "<html>" +
                 "<head>" +
                 "<meta property=\"og:title\" content=\"The Rock\" />" +
