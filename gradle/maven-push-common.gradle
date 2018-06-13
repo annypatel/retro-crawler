@@ -1,0 +1,50 @@
+["SONATYPE_NEXUS_USERNAME", "SONATYPE_NEXUS_PASSWORD"].each {
+    checkAndDefaultProperty(it)
+}
+
+["signing.keyId", "signing.password", "signing.secretKeyRingFile"].each {
+    checkProperty(it)
+}
+
+def checkAndDefaultProperty(prop) {
+    if (!project.hasProperty(prop)) {
+        checkProperty(prop)
+        rootProject.ext.set(prop, prop)
+    }
+}
+
+def checkProperty(prop) {
+    if (!project.hasProperty(prop)) {
+        logger.warn("Add " + prop + " to your ~/.gradle/gradle.properties file.")
+    }
+}
+
+def isReleaseBuild() {
+    return !VERSION_NAME.contains("SNAPSHOT")
+}
+
+def getReleaseRepositoryUrl() {
+    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
+            : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+}
+
+def getSnapshotRepositoryUrl() {
+    return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
+            : "https://oss.sonatype.org/content/repositories/snapshots/"
+}
+
+def getRepositoryUsername() {
+    return hasProperty('SONATYPE_NEXUS_USERNAME') ? SONATYPE_NEXUS_USERNAME : ""
+}
+
+def getRepositoryPassword() {
+    return hasProperty('SONATYPE_NEXUS_PASSWORD') ? SONATYPE_NEXUS_PASSWORD : ""
+}
+
+ext {
+    isReleaseBuild = this.&isReleaseBuild
+    getReleaseRepositoryUrl = this.&getReleaseRepositoryUrl
+    getSnapshotRepositoryUrl = this.&getSnapshotRepositoryUrl
+    getRepositoryUsername = this.&getRepositoryUsername
+    getRepositoryPassword = this.&getRepositoryPassword
+}

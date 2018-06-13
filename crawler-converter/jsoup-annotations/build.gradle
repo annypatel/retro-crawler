@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply from: rootProject.file("gradle/maven-push-android.gradle")
 
 android {
     compileSdkVersion buildVersions.compileSdk

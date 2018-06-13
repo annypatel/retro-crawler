@@ -1,4 +1,5 @@
 apply plugin: 'java-library'
+apply from: rootProject.file("gradle/maven-push-java.gradle")
 
 dependencies {
     api project(":crawler")
