@@ -1,5 +1,5 @@
 apply plugin: 'java-library'
-apply from: rootProject.file("gradle/maven-push-java.gradle")
+apply from: rootProject.file("gradle/maven_publish_java.gradle")
 
 dependencies {
     implementation project(":crawler")

@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply from: rootProject.file("gradle/maven-push-android.gradle")
 
 android {
     compileSdkVersion buildVersions.compileSdk
@@ -28,3 +27,5 @@ dependencies {
 repositories {
     maven { url 'https://jitpack.io' }
 }
+
+apply from: rootProject.file("gradle/maven_publish_android.gradle")
