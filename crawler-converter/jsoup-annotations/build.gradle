@@ -28,4 +28,4 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 
-apply from: rootProject.file("gradle/maven_publish_android.gradle")
+apply from: rootProject.file("gradle/maven_publish.gradle")

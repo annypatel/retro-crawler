@@ -1,3 +1,7 @@
+apply plugin: 'maven-publish'
+apply plugin: 'digital.wup.android-maven-publish'
+apply plugin: 'signing'
+
 ["SONATYPE_NEXUS_USERNAME", "SONATYPE_NEXUS_PASSWORD"].each {
     checkAndDefaultProperty(it)
 }
@@ -41,10 +45,118 @@ def getRepositoryPassword() {
     return hasProperty('SONATYPE_NEXUS_PASSWORD') ? SONATYPE_NEXUS_PASSWORD : ""
 }
 
-ext {
-    isReleaseBuild = this.&isReleaseBuild
-    getReleaseRepositoryUrl = this.&getReleaseRepositoryUrl
-    getSnapshotRepositoryUrl = this.&getSnapshotRepositoryUrl
-    getRepositoryUsername = this.&getRepositoryUsername
-    getRepositoryPassword = this.&getRepositoryPassword
+
+def isAndroid = getPlugins().hasPlugin('com.android.library')
+def component = isAndroid ? components.android : components.java
+if (isAndroid) {
+
+    task sourcesJar(type: Jar) {
+        from android.sourceSets.main.java.sourceFiles
+        classifier 'sources'
+    }
+
+    task androidJavadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+
+        if (JavaVersion.current().isJava8Compatible()) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
+    }
+
+    task javadocJar(type: Jar, dependsOn: androidJavadoc) {
+        from androidJavadoc
+        classifier = 'javadoc'
+    }
+} else {
+
+    task sourcesJar(type: Jar) {
+        from sourceSets.main.allJava
+        classifier 'sources'
+    }
+
+    task javadocJar(type: Jar) {
+        from javadoc
+        classifier 'javadoc'
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from component
+            artifact sourcesJar
+            artifact javadocJar
+
+            groupId GROUP
+            artifactId POM_ARTIFACT_ID
+            version VERSION_NAME
+
+            pom {
+                name = POM_NAME
+                packaging = POM_PACKAGING
+                description = POM_DESCRIPTION
+                url = POM_URL
+
+                scm {
+                    url = POM_SCM_URL
+                    connection = POM_SCM_CONNECTION
+                    developerConnection = POM_SCM_DEV_CONNECTION
+                }
+
+                licenses {
+                    license {
+                        name = POM_LICENCE_NAME
+                        url = POM_LICENCE_URL
+                        distribution = POM_LICENCE_DIST
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = POM_DEVELOPER_ID
+                        name = POM_DEVELOPER_NAME
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name 'snapshot'
+            url getSnapshotRepositoryUrl()
+            credentials {
+                username = getRepositoryUsername()
+                password = getRepositoryPassword()
+            }
+        }
+
+        maven {
+            name 'release'
+            url getReleaseRepositoryUrl()
+            credentials {
+                username = getRepositoryUsername()
+                password = getRepositoryPassword()
+            }
+        }
+    }
+}
+
+signing {
+    required { isReleaseBuild() }
+    sign publishing.publications.maven
+}
+
+
+publishMavenPublicationToReleaseRepository.doFirst {
+    if (!isReleaseBuild()) {
+        throw new GradleException("Release build version should not end with 'SNAPSHOT'.")
+    }
+}
+
+publishMavenPublicationToSnapshotRepository.doFirst {
+    if (isReleaseBuild()) {
+        throw new GradleException("Snapshot build version should end with 'SNAPSHOT'.")
+    }
 }
