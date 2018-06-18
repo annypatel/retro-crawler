@@ -3,7 +3,8 @@ version: 2
 cache_key: &cache_key
   key: jars-{{ checksum "build.gradle" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
-defaults: &defaults
+jobs:
+  build:
     working_directory: ~/RetroCrawler
 
     docker:
@@ -12,10 +13,6 @@ defaults: &defaults
     environment:
       JVM_OPTS: -Xmx3200m
       TERM: dumb
-
-jobs:
-  build:
-    <<: *defaults
     
     steps:
       - checkout
@@ -33,12 +30,6 @@ jobs:
             - ~/.gradle/caches
             - ~/.gradle/wrapper
 
-  test:
-    <<: *defaults
-
-    steps:
-      - checkout
-
       - run:
           name: Run Tests
           command: |
@@ -51,28 +42,3 @@ jobs:
           path: ~/test-results
       - store_artifacts:
           path: ~/test-results
-
-  deploy:
-    <<: *defaults
-
-    steps:
-      - checkout
-
-      - run:
-          name: Deploy Snapshot
-          command: ./gradlew publishMavenPublicationToSnapshotRepository
-
-workflows:
-  version: 2
-  build-test-and-deploy:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
-      - deploy:
-          requires:
-            - test
-          filters:
-            branches:
-              only: master
